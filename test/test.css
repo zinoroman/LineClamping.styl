@@ -1,0 +1,37 @@
+.test-element {
+  display: flex;
+  align-items: center;
+  width: 10em;
+  height: 10em;
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+}
+.test-element__inner {
+  line-height: 1.25;
+  font-size: 1em;
+  max-height: 10em;
+  overflow: hidden;
+}
+@supports (display: -webkit-box) and (-webkit-line-clamp: 8) {
+  .test-element__inner {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 8;
+  }
+}
+.test-element-inline {
+  max-width: 10em;
+  line-height: 1.5;
+  font-size: 1em;
+  display: inline-block;
+  max-height: 4.5em;
+  overflow: hidden;
+}
+@supports (display: -webkit-box) and (-webkit-line-clamp: 3) {
+  .test-element-inline {
+    display: -webkit-inline-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}

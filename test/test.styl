@@ -1,0 +1,21 @@
+@import '../line-clamping';
+
+.test-element
+    display flex
+    align-items center
+    width 10em
+    height @width
+    padding 1em
+    margin-bottom 1em
+    border 1px solid #ccc
+
+    &__inner
+        line-height 1.25
+        font-size 1em
+        line-clamping(8, @line-height * @font-size)
+
+.test-element-inline
+    max-width 10em
+    line-height 1.5
+    font-size 1em
+    line-clamping(3, @line-height * @font-size, true)

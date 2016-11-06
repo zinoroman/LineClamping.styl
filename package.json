@@ -1,0 +1,12 @@
+{
+  "name": "clamp.styl",
+  "description": "Stylus mixin for vertical text clamping",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/zinoroman/Clamp.styl",
+    "type": "git"
+  },
+  "author": "Zino Roman",
+  "license": "MIT"
+}
