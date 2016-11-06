@@ -7,6 +7,15 @@
     "url": "https://github.com/zinoroman/Clamp.styl",
     "type": "git"
   },
+  "scripts": {
+    "test": "npm run start::server && npm run compile::stylus",
+    "start::server": "./node_modules/browser-sync/bin/browser-sync.js start --server 'test' --files 'test'",
+    "compile::stylus": "./node_modules/styus/bin/stylus.js -w ./test"
+  },
   "author": "Zino Roman",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.17.5",
+    "stylus": "^0.54.5"
+  }
 }
