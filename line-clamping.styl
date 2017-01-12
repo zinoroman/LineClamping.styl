@@ -13,7 +13,7 @@ line-clamping(
     max-height $lines-count * $line-height
     overflow hidden
 
-    @supports (display: -webkit-box) and (-webkit-line-clamp: $lines-count)
+    @supports (display -webkit-box) and (-webkit-line-clamp $lines-count)
         if $isInline
             display -webkit-inline-box
         else
