@@ -1,5 +1,5 @@
 {
-  "name": "@wedes/line-clamping.styl",
+  "name": "line-clamping.styl",
   "description": "Stylus mixin for text vertical clamping",
   "version": "0.1.0",
   "main": "index.js",
