@@ -1,20 +1,16 @@
-$textClamp__Default_LineHeight ?= 1.25
-$textClamp__Default_FontSize ?= 1em
-
-$textClamp__Calculated_HeightOfOneTextLine = $textClamp__Default_LineHeight * $textClamp__Default_FontSize 
-
 line-clamping(
     $lines-count = 1, 
-    $line-height = $textClamp__Calculated_HeightOfOneTextLine, 
-    $isInline = false
+    $font-size = 16px,
+    $line-height = 1.25, 
+    $is-inline = false
 )
-    if $isInline
+    if $is-inline
         display inline-block
-    max-height $lines-count * $line-height
+    max-height $lines-count * ($line-height * $font-size)
     overflow hidden
 
     @supports (display -webkit-box) and (-webkit-line-clamp $lines-count)
-        if $isInline
+        if $is-inline
             display -webkit-inline-box
         else
             display -webkit-box
