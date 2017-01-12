@@ -1,6 +1,6 @@
 {
   "name": "line-clamping.styl",
-  "description": "Stylus mixin for text vertical clamping",
+  "description": "Stylus mixin for clamping multiline text",
   "version": "1.0.0",
   "main": "index.js",
   "repository": {
