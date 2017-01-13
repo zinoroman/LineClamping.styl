@@ -4,7 +4,7 @@ Stylus mixin for clamping multiline text
 ##Get started
 
 ###Using Gulp
-Import installed package from `node_modules`
+Import the installed package from `node_modules`
 
 ```javascript
   import lineClamping from 'line-clamping.styl';
