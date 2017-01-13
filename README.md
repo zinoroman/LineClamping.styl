@@ -3,6 +3,7 @@ Stylus mixin for clamping multiline text
 
 ##Get started
 
+###Using Gulp
 Import installed package from `node_modules`
 
 ```javascript
