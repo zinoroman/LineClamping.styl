@@ -1,0 +1,37 @@
+// @describe line-clamping()
+ 
+// @it should keep visible only two lines of text
+.foo
+    line-clamping(2, 20px, 1.25)
+ 
+// @expect
+.foo {
+    max-height: 50px;
+    overflow: hidden;
+}
+@supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
+    .foo {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
+
+// @it should change display of the element to -webkit-inline-box or inline-block
+.foo
+    line-clamping(2, 20px, 1.25, true)
+ 
+// @expect
+.foo {
+    display: inline-block;
+    max-height: 50px;
+    overflow: hidden;
+}
+@supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
+    .foo {
+        display: -webkit-inline-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
+

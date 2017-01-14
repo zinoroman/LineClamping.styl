@@ -13,9 +13,8 @@
   "author": "Zino Roman",
   "license": "MIT",
   "devDependencies": {
-    "stylus": "^0.54.5"
+    "stylus": "^0.54.5",
+    "stylus-test-runner": "zinoroman/stylus-test-runner#22c20a1b4e2e75c3387d17486a2f43554847cc27"
   },
-  "dependencies": {
-    "stylus-test-runner": "^0.2.0"
-  }
+  "dependencies": {}
 }
