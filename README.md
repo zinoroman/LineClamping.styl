@@ -1,9 +1,7 @@
+[![NPM version](https://img.shields.io/npm/v/line-clamping.styl.svg) ](https://npmjs.org/package/line-clamping.styl "View this project on NPM") [ ![NPM downloads](https://img.shields.io/npm/dm/line-clamping.styl.svg) ](https://npmjs.org/package/line-clamping.styl "View this project on NPM") [ ![Dependency Status](https://img.shields.io/david/zinoroman/LineClamping.styl.svg) ](https://david-dm.org/zinoroman/LineClamping.styl "View the status of this project's dependencies on DavidDM") [ ![Dev Dependency Status](https://img.shields.io/david/dev/zinoroman/LineClamping.styl.svg)](https://david-dm.org/zinoroman/LineClamping.styl#info=devDependencies "View the status of this project's development dependencies on DavidDM")
+
 # LineClamping.styl
 Stylus mixin for clamping multiline text
-
-##Project Info in Badges
-
-[![NPM version](https://img.shields.io/npm/v/line-clamping.styl.svg) ](https://npmjs.org/package/line-clamping.styl "View this project on NPM") [ ![NPM downloads](https://img.shields.io/npm/dm/line-clamping.styl.svg) ](https://npmjs.org/package/line-clamping.styl "View this project on NPM") [ ![Dependency Status](https://img.shields.io/david/zinoroman/LineClamping.styl.svg) ](https://david-dm.org/zinoroman/LineClamping.styl "View the status of this project's dependencies on DavidDM") [ ![Dev Dependency Status](https://img.shields.io/david/dev/zinoroman/LineClamping.styl.svg)](https://david-dm.org/zinoroman/LineClamping.styl#info=devDependencies "View the status of this project's development dependencies on DavidDM")
 
 ##Installation
 
