@@ -16,7 +16,7 @@ npm i line-clamping.styl --save-dev
 If you are feeling yourself hipster you can use *yarn*
 
 ```
-yarn add line-clamping.styl
+yarn add line-clamping.styl --dev
 ```
 
 ###Using Gulp
