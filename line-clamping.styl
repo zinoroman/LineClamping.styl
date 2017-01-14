@@ -1,18 +1,41 @@
-line-clamping(
-    $lines-count = 1, 
-    $font-size = 16px,
-    $line-height = 1.25, 
-    $is-inline = false
-)
+/**
+ * @author     Zino Roman <zino.roman95@gmail.com>
+ * @copyright  Zino Roman 2017 
+ */
+ 
+/**
+ * Mixin for clamping multiline text
+ * @param {number} $lines-count - Count of the lines that will be shown
+ * @param {css unit} $font-size - font-size property of the element
+ * @param {css relative unit} $line-height - line-height property of the element
+ * @param {boolean} $is-inline - Param ets inline display mode for the element
+ */
+line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inline = false)
+    //Remember the fact, that you should set `width` of the element
+    //when you are using inline display mode
     $display = $is-inline ? inline-block : block
-    $display-webkit = $is-inline ? -webkit-inline-box : -webkit-box
-    $max-height = $lines-count * ($line-height * $font-size)
-
-    display $display
-    max-height $max-height
-    overflow hidden
-
-    @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
-        display $display-webkit
-        -webkit-box-orient vertical
-        -webkit-line-clamp $lines-count
+            
+    //If we need only one line of the text,
+    //then better way is to use `text-overflow: ellipsis`
+    //cause it has wider support
+    if $lines-count == 1
+        display $display
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+    else
+        $display-webkit = $is-inline ? -webkit-inline-box : -webkit-box
+        $max-height = $lines-count * ($line-height * $font-size)
+        
+        //Rules for IE, Edge, Firefox
+        display $display
+        max-height $max-height
+        overflow hidden
+        font-size $font-size
+        line-height $line-height
+    
+        //Rules for webkit browser
+        @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
+            display $display-webkit
+            -webkit-box-orient vertical
+            -webkit-line-clamp $lines-count
