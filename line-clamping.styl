@@ -4,15 +4,15 @@ line-clamping(
     $line-height = 1.25, 
     $is-inline = false
 )
-    if $is-inline
-        display inline-block
-    max-height $lines-count * ($line-height * $font-size)
+    $display = $is-inline ? inline-block : block
+    $display-webkit = $is-inline ? -webkit-inline-box : -webkit-box
+    $max-height = $lines-count * ($line-height * $font-size)
+
+    display $display
+    max-height $max-height
     overflow hidden
 
-    @supports (display -webkit-box) and (-webkit-line-clamp $lines-count)
-        if $is-inline
-            display -webkit-inline-box
-        else
-            display -webkit-box
+    @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
+        display $display-webkit
         -webkit-box-orient vertical
         -webkit-line-clamp $lines-count
