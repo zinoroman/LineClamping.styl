@@ -1,4 +1,4 @@
-# LineClamping.styl
+# LineClamping.styl &middot; [![npm version](https://badge.fury.io/js/line-clamping.styl.svg)](https://badge.fury.io/js/line-clamping.styl)
 Stylus mixin for clamping multiline text
 
 ##Installation
