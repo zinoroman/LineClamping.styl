@@ -1,7 +1,6 @@
 const testRunnerConfig = {
     stylus: {
-        use: require('../index.js')(),
-        import: './test/test-two-lines.styl'
+        use: require('../index.js')()
     }
 }
 
