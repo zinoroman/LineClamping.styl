@@ -18,20 +18,19 @@
 }
 
 // @it should change display of the element to -webkit-inline-box or inline-block
-.foo
+.bar
     line-clamping(2, 20px, 1.25, true)
  
 // @expect
-.foo {
+.bar {
     display: inline-block;
     max-height: 50px;
     overflow: hidden;
 }
 @supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
-    .foo {
+    .bar {
         display: -webkit-inline-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
     }
 }
-
