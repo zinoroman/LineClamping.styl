@@ -1,6 +1,20 @@
 # LineClamping.styl
 Stylus mixin for clamping multiline text
 
+##Installation
+
+You can install **LineClamping.styl** using *npm*
+
+```
+  npm i line-clamping.styl --save-dev
+```
+
+If you are feeling yourself hipster you can use *yarn*
+
+```
+  yarn add line-clamping.styl
+```
+
 ##Get started
 
 ###Using Gulp
@@ -18,4 +32,4 @@ Add it to `use` array for stylus
   })
 ```
 
-That's all! Now you are ready to use `lineClamping`
+That's all! Now you are ready to use **LineClamping.styl**
