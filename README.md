@@ -10,13 +10,13 @@ Stylus mixin for clamping multiline text
 You can install **LineClamping.styl** using *npm*
 
 ```
-    npm i line-clamping.styl --save-dev
+npm i line-clamping.styl --save-dev
 ```
 
 If you are feeling yourself hipster you can use *yarn*
 
 ```
-    yarn add line-clamping.styl
+yarn add line-clamping.styl
 ```
 
 ###Using Gulp
@@ -24,15 +24,15 @@ If you are feeling yourself hipster you can use *yarn*
 Import the installed package from `node_modules`
 
 ```javascript
-    import lineClamping from 'line-clamping.styl';
+import lineClamping from 'line-clamping.styl';
 ```
 
 Add it to `use` array for stylus
 
 ```javascript
-    stylus({
-        use: [lineClamping()],
-    })
+stylus({
+    use: [lineClamping()],
+})
 ```
 
 That's all! Now you are ready to use **LineClamping.styl**
@@ -42,22 +42,22 @@ That's all! Now you are ready to use **LineClamping.styl**
 `line-clamping` mixin takes 4 arguments:
 
 ```stylus
-    line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inline = false)
+line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inline = false)
 ```
 
 For example, if you need to create block `.block` that has `font-size: 20px` and `line-height: 2` with two lines of the text then the code will be following:
 
 ```stylus
-    .block
-        line-clamping(2, 20px, 2)
+.block
+    line-clamping(2, 20px, 2)
 ```
 
 If you want to use `$is-inline` mode you must set `width` property for the element.
 
 ```stylus
-    .inline-block
-        width 200px
-        line-clamping(2, 20px, 2, true)
+.inline-block
+    width 200px
+    line-clamping(2, 20px, 2, true)
 ```
 
 You can find more examples of usage `line-clamping()` in `test` folder
