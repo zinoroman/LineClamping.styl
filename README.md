@@ -19,7 +19,9 @@ If you are feeling yourself like a hipster you can use *yarn*
 yarn add line-clamping.styl --dev
 ```
 
-###Using Gulp
+###Including
+
+####Using gulp
 
 Import the installed package from `node_modules`
 
