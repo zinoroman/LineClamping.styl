@@ -1,11 +1,11 @@
 // @describe line-clamping()
  
-// @it should keep visible only two lines of text using default and webkit way
-.foo
+// @it should keep visible only two lines of text using unitless `line-height` property
+.test
     line-clamping(2, 20px, 1.25)
  
 // @expect
-.foo {
+.test {
     display: block;
     max-height: 50px;
     overflow: hidden;
@@ -13,7 +13,47 @@
     line-height: 1.25;
 }
 @supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
-    .foo {
+    .test {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
+
+// @it should keep visible only two lines of text using `line-height` property in percents
+.test
+    line-clamping(2, 20px, 150%)
+ 
+// @expect
+.test {
+    display: block;
+    max-height: 60px;
+    overflow: hidden;
+    font-size: 20px;
+    line-height: 150%;
+}
+@supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
+    .test {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
+
+// @it should keep visible only two lines of text using `line-height` property in px
+.test
+    line-clamping(2, 20px, 30px)
+ 
+// @expect
+.test {
+    display: block;
+    max-height: 60px;
+    overflow: hidden;
+    font-size: 20px;
+    line-height: 30px;
+}
+@supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
+    .test {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -21,11 +61,11 @@
 }
 
 // @it keep visible only one line of text using `text-overflow: ellipsis` way
-.bar
+.test
     line-clamping(1)
  
 // @expect
-.bar {
+.test {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -33,11 +73,11 @@
 }
 
 // @it should change display of the element to `inline-block` or `-webkit-inline-box` 
-.baz
+.test
     line-clamping(2, 20px, 1.25, true)
  
 // @expect
-.baz {
+.test {
     display: inline-block;
     max-height: 50px;
     overflow: hidden;
@@ -45,7 +85,7 @@
     line-height: 1.25;
 }
 @supports (display: -webkit-inline-box) and (-webkit-line-clamp: 2) {
-    .baz {
+    .test {
         display: -webkit-inline-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
