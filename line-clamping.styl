@@ -51,34 +51,49 @@ line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inli
     preInit()
         if $lines-count < 1
             error('$lines-count parameter should be greater then 0')
-
-    init()
-        preInit()
-        
-        //Mixin implementation
-        $display = line-clamping-get-display($is-inline)
-        $display-webkit = line-clamping-get-display-webkit($is-inline)
-                      
+    
+    /**
+     * @param {string} $display
+     */
+    lineClampingStrategyOneLine($display)
         /* If we need only one line of the text,
         then better way is to use `text-overflow: ellipsis`
         cause it has wider support */
-        if $lines-count == 1
-            display $display
-            overflow hidden
-            text-overflow ellipsis
-            white-space nowrap
-        else        
-            //Rules for IE, Edge, Firefox
-            display $display
-            max-height line-clamping-calculate-max-height($lines-count, $font-size, $line-height)
-            overflow hidden
-            font-size $font-size
-            line-height $line-height
+        display $display
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+    
+    /**
+     * @param {string} $display
+     * @param {string} $display-webkit
+     */
+    lineClampingStrategyFewLine($display, $display-webkit)
+        //Rules for IE, Edge, Firefox
+        display $display
+        max-height line-clamping-calculate-max-height($lines-count, $font-size, $line-height)
+        overflow hidden
+        font-size $font-size
+        line-height $line-height
         
-            //Rules for webkit browser
-            @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
-                display $display-webkit
-                -webkit-box-orient vertical
-                -webkit-line-clamp $lines-count
+        //Rules for webkit browser
+        @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
+            display $display-webkit
+            -webkit-box-orient vertical
+            -webkit-line-clamp $lines-count
+
+    findLineClampingStrategyAndPrintRules()
+        //Mixin implementation
+        $display = line-clamping-get-display($is-inline)
+        $display-webkit = line-clamping-get-display-webkit($is-inline)
+
+        if $lines-count == 1
+            lineClampingStrategyOneLine($display)
+        else        
+            lineClampingStrategyFewLine($display, $display-webkit)
+                
+    init()
+        preInit()     
+        findLineClampingStrategyAndPrintRules()
                 
     init()
