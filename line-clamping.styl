@@ -6,31 +6,34 @@
 /**
  * Mixin for clamping multiline text
  * @param {number} $lines-count - Count of the lines that will be shown
- * @param {css unit} $font-size - font-size property of the element
  * @param {css unit} $line-height - line-height property of the element
+ * @param {css unit} $font-size - font-size property of the element
  * @param {boolean} $is-inline - Parameter sets inline display mode for the element
  */
-line-clamping($lines-count = 1, $line-height = 1.25, $font-size = 16px, $is-inline = false)        
-    line-clamping-get-display()
-        /* Remember the fact, that you should set `width` of the element
-        when you are using inline display mode */
-        if $is-inline
-            inline-block
-        else
-            block
+line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-inline = false)
+    /**
+     * @return {string} - Unit of the $line-height property
+     */ 
+    getLineHeightUnit()
+        unit($line-height)
     
-    line-clamping-get-display-webkit()
-        if $is-inline
-            -webkit-inline-box 
+     /**
+      * @return {boolean} - Is line-height unit relative
+      */ 
+    isLineHeightUnitRelative($line-height-unit)
+        if $line-height-unit == ''  or $line-height-unit  == '%' or $line-height-unit == 'em'
+            true
         else
-            -webkit-box
-        
-    line-clamping-calculate-max-height()
+            false
+    
+    /**
+     * @param {string} $line-height-unit - Unit of the $line-height property
+     * @param {boolean} $is-line-height-unit-relative - Is line-height unit relative
+     */
+    line-clamping-calculate-max-height($line-height-unit, $is-line-height-unit-relative)
         /* Unitless, percents or ems units require
          a different strategy of calculation than all other units */
-        $line-height-unit = unit($line-height)
-        
-        if $line-height-unit == ''  or $line-height-unit  == '%' or $line-height-unit == 'em'
+        if $is-line-height-unit-relative
             $line-height-computed = $line-height
             
             if $line-height-unit == '%'
@@ -48,10 +51,6 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = 16px, $is-inli
         else
             $max-height = $lines-count * $line-height
     
-    preInit()
-        if $lines-count < 1
-            error('$lines-count argument should be greater then 0')
-    
     /**
      * @param {string} $display - CSS value of `display` property
      */
@@ -68,12 +67,16 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = 16px, $is-inli
      * @param {string} $display - CSS value of `display` property
      * @param {string} $display-webkit - CSS value of `display` property
      */
-    lineClampingStrategyFewLine($display, $display-webkit)
+    lineClampingStrategyFewLine($display, $display-webkit)        
+        $line-height-unit = getLineHeightUnit()
+        $is-line-height-unit-relative = isLineHeightUnitRelative($line-height-unit)
+        
         //Rules for IE, Edge, Firefox
         display $display
-        max-height line-clamping-calculate-max-height($lines-count, $font-size, $line-height)
+        max-height line-clamping-calculate-max-height($line-height-unit, $is-line-height-unit-relative)
         overflow hidden
-        font-size $font-size
+        if $is-line-height-unit-relative
+            font-size $font-size
         line-height $line-height
         
         //Rules for webkit browser
@@ -81,6 +84,20 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = 16px, $is-inli
             display $display-webkit
             -webkit-box-orient vertical
             -webkit-line-clamp $lines-count
+            
+    line-clamping-get-display()
+        /* Remember the fact, that you should set `width` of the element
+        when you are using inline display mode */
+        if $is-inline
+            inline-block
+        else
+            block
+    
+    line-clamping-get-display-webkit()
+        if $is-inline
+            -webkit-inline-box 
+        else
+            -webkit-box
 
     findLineClampingStrategyAndPrintRules()
         //Mixin implementation
@@ -91,7 +108,14 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = 16px, $is-inli
             lineClampingStrategyOneLine($display)
         else        
             lineClampingStrategyFewLine($display, $display-webkit)
-                
+    
+    checkUserArguments()
+        if $lines-count < 1
+            error('$lines-count argument should be greater then 0')
+
+    preInit()
+        checkUserArguments()
+
     init()
         preInit()     
         findLineClampingStrategyAndPrintRules()
