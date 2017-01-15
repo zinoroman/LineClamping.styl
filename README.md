@@ -19,7 +19,7 @@ If you are feeling yourself like a hipster you can use *yarn*
 yarn add line-clamping.styl --dev
 ```
 
-###Including
+###Importing
 
 ####Using gulp
 
