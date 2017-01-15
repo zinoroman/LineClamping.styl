@@ -10,12 +10,8 @@
  * @param {css unit} $line-height - line-height property of the element
  * @param {boolean} $is-inline - Parameter sets inline display mode for the element
  */
-line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inline = false)
-    /**
-     * @private
-     * @param {boolean} $is-inline - Parameter sets inline display mode for the element
-     */
-    line-clamping-get-display($is-inline)
+line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inline = false)        
+    line-clamping-get-display()
         /* Remember the fact, that you should set `width` of the element
         when you are using inline display mode */
         if $is-inline
@@ -23,23 +19,13 @@ line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inli
         else
             block
     
-    /**
-     * @private
-     * @param {boolean} $is-inline - Parameter sets inline display mode for the element
-     */
-    line-clamping-get-display-webkit($is-inline)
+    line-clamping-get-display-webkit()
         if $is-inline
             -webkit-inline-box 
         else
             -webkit-box
         
-    /**
-     * @private
-     * @param {number} $lines-count - Count of the lines that will be shown
-     * @param {css unit} $font-size - font-size property of the element
-     * @param {css unit} $line-height - line-height property of the element
-     */   
-    line-clamping-calculate-max-height($lines-count, $font-size, $line-height)
+    line-clamping-calculate-max-height()
         /* Unitless, percents or ems units require
          a different strategy of calculation than all other units */
         $line-height-unit = unit($line-height)
@@ -61,29 +47,38 @@ line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inli
             $max-height = $lines-count * ($line-height-computed * $font-size)
         else
             $max-height = $lines-count * $line-height
-
-    //Mixin implementation
-    $display = line-clamping-get-display($is-inline)
-    $display-webkit = line-clamping-get-display-webkit($is-inline)
-                  
-    /* If we need only one line of the text,
-    then better way is to use `text-overflow: ellipsis`
-    cause it has wider support */
-    if $lines-count == 1
-        display $display
-        overflow hidden
-        text-overflow ellipsis
-        white-space nowrap
-    else        
-        //Rules for IE, Edge, Firefox
-        display $display
-        max-height line-clamping-calculate-max-height($lines-count, $font-size, $line-height)
-        overflow hidden
-        font-size $font-size
-        line-height $line-height
     
-        //Rules for webkit browser
-        @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
-            display $display-webkit
-            -webkit-box-orient vertical
-            -webkit-line-clamp $lines-count
+    preInit()
+        if $lines-count < 1
+            error('$lines-count parameter should be greater then 0')
+
+    init()
+        preInit()
+        
+        //Mixin implementation
+        $display = line-clamping-get-display($is-inline)
+        $display-webkit = line-clamping-get-display-webkit($is-inline)
+                      
+        /* If we need only one line of the text,
+        then better way is to use `text-overflow: ellipsis`
+        cause it has wider support */
+        if $lines-count == 1
+            display $display
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+        else        
+            //Rules for IE, Edge, Firefox
+            display $display
+            max-height line-clamping-calculate-max-height($lines-count, $font-size, $line-height)
+            overflow hidden
+            font-size $font-size
+            line-height $line-height
+        
+            //Rules for webkit browser
+            @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
+                display $display-webkit
+                -webkit-box-orient vertical
+                -webkit-line-clamp $lines-count
+                
+    init()
