@@ -44,14 +44,14 @@ That's all! Now you are ready to use **LineClamping.styl**
 `line-clamping` mixin takes 4 arguments:
 
 ```stylus
-line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inline = false)
+line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-inline = false)
 ```
 
 For example, if you need to create block `.block` that has `font-size: 20px` and `line-height: 2` with two lines of the text then the code will be following:
 
 ```stylus
 .block
-    line-clamping(2, 20px, 2)
+    line-clamping(2, 2, 20px)
 ```
 
 If you want to use `$is-inline` mode you must set `width` property for the element.
@@ -59,7 +59,7 @@ If you want to use `$is-inline` mode you must set `width` property for the eleme
 ```stylus
 .inline-block
     width 200px
-    line-clamping(2, 20px, 2, true)
+    line-clamping(2, 2, 20px, true)
 ```
 
 You can find more examples of usage `line-clamping()` in `test` folder
