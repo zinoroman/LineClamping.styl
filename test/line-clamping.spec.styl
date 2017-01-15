@@ -2,7 +2,7 @@
  
 // @it should keep visible only two lines of text using unitless `line-height` property
 .test
-    line-clamping(2, 20px, 1.25)
+    line-clamping(2, 1.25, 20px)
  
 // @expect
 .test {
@@ -22,7 +22,7 @@
 
 // @it should keep visible only two lines of text using `line-height` property in percents
 .test
-    line-clamping(2, 20px, 150%)
+    line-clamping(2, 150%, 20px)
  
 // @expect
 .test {
@@ -42,14 +42,14 @@
 
 // @it should keep visible only two lines of text using `line-height` property in px
 .test
-    line-clamping(2, 20px, 30px)
+    line-clamping(2, 30px)
  
 // @expect
 .test {
     display: block;
     max-height: 60px;
     overflow: hidden;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 30px;
 }
 @supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
@@ -74,7 +74,7 @@
 
 // @it should change display of the element to `inline-block` or `-webkit-inline-box` 
 .test
-    line-clamping(2, 20px, 1.25, true)
+    line-clamping(2, 1.25, 20px, true)
  
 // @expect
 .test {

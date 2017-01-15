@@ -10,7 +10,7 @@
  * @param {css unit} $line-height - line-height property of the element
  * @param {boolean} $is-inline - Parameter sets inline display mode for the element
  */
-line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inline = false)        
+line-clamping($lines-count = 1, $line-height = 1.25, $font-size = 16px, $is-inline = false)        
     line-clamping-get-display()
         /* Remember the fact, that you should set `width` of the element
         when you are using inline display mode */
@@ -53,7 +53,7 @@ line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inli
             error('$lines-count argument should be greater then 0')
     
     /**
-     * @param {string} $display
+     * @param {string} $display - CSS value of `display` property
      */
     lineClampingStrategyOneLine($display)
         /* If we need only one line of the text,
@@ -65,8 +65,8 @@ line-clamping($lines-count = 1, $font-size = 16px, $line-height = 1.25, $is-inli
         white-space nowrap
     
     /**
-     * @param {string} $display
-     * @param {string} $display-webkit
+     * @param {string} $display - CSS value of `display` property
+     * @param {string} $display-webkit - CSS value of `display` property
      */
     lineClampingStrategyFewLine($display, $display-webkit)
         //Rules for IE, Edge, Firefox
