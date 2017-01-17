@@ -12,13 +12,14 @@
  */
 line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-inline = false)
     /**
-     * @return {string} - Unit of the $line-height property
+     * @return {string} - Unit of the `$line-height` property
      */ 
     getLineHeightUnit()
         unit($line-height)
     
      /**
-      * @return {boolean} - Is line-height unit relative
+      * @param {string} $line-height-unit - Unit of the `$line-height` property
+      * @return {boolean} - Is `$line-height-unit` relative
       */ 
     isLineHeightUnitRelative($line-height-unit)
         if $line-height-unit == ''  or $line-height-unit  == '%' or $line-height-unit == 'em'
@@ -27,7 +28,7 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
             false
     
     /**
-     * @param {string} $line-height-unit - Unit of the $line-height property
+     * @param {string} $line-height-unit - Unit of the `$line-height` property
      * @param {boolean} $is-line-height-unit-relative - Is line-height unit relative
      */
     line-clamping-calculate-max-height($line-height-unit, $is-line-height-unit-relative)
@@ -37,35 +38,37 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
             $line-height-computed = $line-height
             
             if $line-height-unit == '%'
-                //Divide $line-height in percents by 100 for correct further calculation
+                //Divide `$line-height` in percents by 100 for correct further calculation
                 $line-height-computed = $line-height / 100
         
             /*
-                Remove units from $line-height to avoid potential error
-                when $line-height and $font-size have differents CSS units
+                Remove units from `$line-height` to avoid potential error
+                when `$line-height` and `$font-size` have differents CSS units
             */
             $line-height-computed = unit($line-height-computed, '')
             
-            //Calculate our `max-height`
+            //Calculate our max-height for the element
             $max-height = $lines-count * ($line-height-computed * $font-size)
         else
             $max-height = $lines-count * $line-height
     
     /**
-     * @param {string} $display - CSS value of `display` property
+     * @param {string} $display - CSS value of display property
      */
     lineClampingStrategyOneLine($display)
         /* If we need only one line of the text,
         then better way is to use `text-overflow: ellipsis`
-        cause it has wider support */
+        than `lineClampingStrategyFewLine()` way
+        cause it has wider support 
+        */
         display $display
         overflow hidden
         text-overflow ellipsis
         white-space nowrap
     
     /**
-     * @param {string} $display - CSS value of `display` property
-     * @param {string} $display-webkit - CSS value of `display` property
+     * @param {string} $display - CSS value of display property
+     * @param {string} $display-webkit - CSS value of display property
      */
     lineClampingStrategyFewLine($display, $display-webkit)        
         $line-height-unit = getLineHeightUnit()
@@ -100,7 +103,6 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
             -webkit-box
 
     findLineClampingStrategyAndPrintRules()
-        //Mixin implementation
         $display = line-clamping-get-display($is-inline)
         $display-webkit = line-clamping-get-display-webkit($is-inline)
 
