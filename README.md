@@ -9,13 +9,13 @@ Stylus mixin for clamping multiline text
 
 You can install **LineClamping.styl** using *npm*
 
-```
+```bash
 npm i line-clamping.styl --save-dev
 ```
 
 If you are feeling yourself like a hipster you can use *yarn*
 
-```
+```bash
 yarn add line-clamping.styl --dev
 ```
 
