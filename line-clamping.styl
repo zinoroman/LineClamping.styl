@@ -111,9 +111,15 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         else        
             line-clamping-strategy-few-line($display, $display-webkit)
     
+    /**
+     * @param {string} $message - Error message that will be shown
+     */ 
+    line-clamping-error($message)
+        error('Error in LineClamping.styl: ' + $message)
+        
     check-user-arguments()
         if $lines-count < 1
-            error('$lines-count argument should be greater then 0')
+            line-clamping-error('$lines-count argument should be greater then 0')
 
     pre-init()
         check-user-arguments()
