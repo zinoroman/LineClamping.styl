@@ -47,7 +47,7 @@ That's all! Now you are ready to use **line-clamping.styl**
 line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-inline = false)
 ```
 
-For example, if you need to create block `.block` that has `font-size: 20px` and `line-height: 2` with two lines of the text then the code will be following:
+For example, if you need to create block `.block` that should have two lines of the text, `line-height: 2` and `font-size: 20px` then the code will be following:
 
 ```stylus
 .block
