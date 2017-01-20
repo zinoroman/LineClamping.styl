@@ -63,3 +63,17 @@ If you want to use `$is-inline` mode you must set `width` property for the eleme
 ```
 
 You can find more examples of usage `line-clamping()` in `test` folder
+
+###Testing
+
+First of all you need to install the dependencies:
+
+```bash
+yarn
+```
+
+After installation run following command:
+
+```bash
+yarn test
+```
