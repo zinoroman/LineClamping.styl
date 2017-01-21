@@ -33,7 +33,7 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         else
             false
     
-    line-clamping-calculate-max-height()            
+    calculate-max-height()            
         $line-height-type = get-line-height-type()
         $is-line-height-type-unit = $line-height-type == 'unit'
         $is-line-height-unit-relative = false
@@ -67,10 +67,10 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
     /**
      * @param {string} $display - CSS value of display property
      */
-    line-clamping-strategy-one-line($display)
+    strategy-one-line($display)
         /* If we need only one line of the text,
         then better way is to use `text-overflow: ellipsis`
-        than `line-clamping-strategy-few-line()` way
+        than `strategy-few-line()` way
         cause it has wider support 
         */
         display $display
@@ -82,10 +82,10 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
      * @param {string} $display - CSS value of display property
      * @param {string} $display-webkit - CSS value of display property
      */
-    line-clamping-strategy-few-line($display, $display-webkit)        
+    strategy-few-line($display, $display-webkit)        
         //Rules for IE, Edge, Firefox
         display $display
-        max-height line-clamping-calculate-max-height()
+        max-height calculate-max-height()
         overflow hidden
         font-size $font-size if $font-size != inherit
         line-height $line-height
@@ -96,7 +96,7 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
             -webkit-box-orient vertical
             -webkit-line-clamp $lines-count
             
-    line-clamping-get-display()
+    get-display()
         /* Remember the fact, that you should set `width` of the element
         when you are using `$is-inline` display mode */
         if $is-inline
@@ -104,37 +104,37 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         else
             block
     
-    line-clamping-get-display-webkit()
+    get-display-webkit()
         if $is-inline
             -webkit-inline-box 
         else
             -webkit-box
 
-    find-line-clamping-strategy-and-print-rules()
-        $display = line-clamping-get-display($is-inline)
-        $display-webkit = line-clamping-get-display-webkit($is-inline)
+    find-strategy-and-print-rules()
+        $display = get-display($is-inline)
+        $display-webkit = get-display-webkit($is-inline)
 
         if $lines-count == 1
-            line-clamping-strategy-one-line($display)
+            strategy-one-line($display)
         else        
-            line-clamping-strategy-few-line($display, $display-webkit)
+            strategy-few-line($display, $display-webkit)
     
     /**
      * @param {string} $message - Error message that will be shown
      */ 
-    line-clamping-error($message)
+    show-error($message)
         error('Error in line-clamping.styl: ' + $message)
         
     check-user-arguments()
         if $lines-count < 1
-            line-clamping-error('$lines-count argument should be greater then 0')
+            show-error('$lines-count argument should be greater then 0')
 
     pre-init()
         check-user-arguments()
 
     init()
         pre-init()     
-        find-line-clamping-strategy-and-print-rules()
+        find-strategy-and-print-rules()
                 
     init()
     
