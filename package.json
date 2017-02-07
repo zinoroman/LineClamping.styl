@@ -1,7 +1,7 @@
 {
   "name": "line-clamping.styl",
   "description": "Stylus mixin for clamping multiline text",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "main": "index.js",
   "repository": {
     "url": "https://github.com/zinoroman/LineClamping.styl",
