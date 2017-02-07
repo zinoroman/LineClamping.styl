@@ -78,6 +78,26 @@
     }
 }
 
+// @it should keep visible only two lines of text when `calc` is used as `font-size ` unit
+.test
+    line-clamping(2, 1.1, calc(20px + 1.5vw))
+ 
+// @expect
+.test {
+    display: block;
+    max-height: calc((20px + 1.5vw) * 2.2);
+    overflow: hidden;
+    font-size: calc(20px + 1.5vw);
+    line-height: 1.1;
+}
+@supports (display: -webkit-box) and (-webkit-line-clamp: 2) {
+    .test {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
+
 // @it keep visible only one line of text using `text-overflow: ellipsis` way
 .test
     line-clamping(1)

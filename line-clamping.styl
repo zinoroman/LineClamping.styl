@@ -24,6 +24,12 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         unit($line-height)
     
      /**
+      * @return {string} - Unit of the `$font-size` property
+      */ 
+    get-font-size-type()
+        typeof($font-size)
+
+     /**
       * @param {string} $line-height-unit - Unit of the `$line-height` property
       * @return {boolean} - Is `$line-height-unit` relative
       */ 
@@ -35,6 +41,7 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
     
     calculate-max-height()            
         $line-height-type = get-line-height-type()
+        $font-size-type = get-font-size-type()
         $is-line-height-type-unit = $line-height-type == 'unit'
         $is-line-height-unit-relative = false
         
@@ -58,7 +65,10 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
             $line-height-computed = unit($line-height-computed, '')
             
             //Calculate our max-height for the element
-            $lines-count * ($line-height-computed * $font-size)
+            if $font-size-type == 'unit'
+                $lines-count * ($line-height-computed * $font-size)
+            else if $font-size-type == 'literal'
+                'calc((%s) * %s)' % (get-calc-inner-value($font-size) ($lines-count * $line-height-computed))
         else if $is-line-height-type-unit
             $lines-count * $line-height
         else if $line-height-type == 'literal'
