@@ -51,10 +51,10 @@ Available options
 
 ```stylus
 {
-    lines: <number>, 
-    line-height?: <css unit>, 
-    font-size?: <css unit>, 
-    is-inline?: <boolean>
+    lines: number, 
+    line-height?: css unit, 
+    font-size?: css unit, 
+    is-inline?: boolean
 }
 ```
 
