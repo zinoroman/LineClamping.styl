@@ -17,26 +17,6 @@
  * @param {I-line-clamping|number} $user-options 
  */
 line-clamping($user-options)
-    //Constructor
-    $default-options = {
-        lines: 1,
-        line-height: 1.25,
-        font-size: inherit,
-        is-inline: false
-    }
-
-    if typeof($user-options) == 'unit'
-        $user-options = {
-            lines: $user-options
-        }
-    
-    $options = merge($default-options, $user-options)
-    
-    check-user-arguments() 
-    find-strategy-and-print-rules()
-    
-    //Prototype
-
     /**
      * @return {string} - Type of the `line-height` property
      */ 
@@ -92,13 +72,14 @@ line-clamping($user-options)
             
             //Calculate our max-height for the element
             if $font-size-type == 'unit'
-                $options['lines'] * ($line-height-computed * $options['font-size'])
+                ($options['lines'] * ($line-height-computed * $options['font-size']))
             else if $font-size-type == 'literal'
                 'calc((%s) * %s)' % (get-calc-inner-value($options['font-size']) ($options['lines'] * $line-height-computed))
         else if $is-line-height-type-unit
-            $options['lines'] * $options['line-height']
+            ($options['lines'] * $options['line-height'])
         else if $line-height-type == 'literal'
             'calc((%s) * %s)' % (get-calc-inner-value($options['line-height']) $options['lines'])
+
     
     /**
      * @param {string} $display - CSS value of display property
@@ -123,15 +104,15 @@ line-clamping($user-options)
         display $display
         max-height calculate-max-height()
         overflow hidden
-        font-size $options['font-size'] if $options['font-size'] != inherit
-        line-height $options['line-height']
+        font-size: $options['font-size'] if $options['font-size'] != inherit
+        line-height: $options['line-height']
         
         //Rules for webkit browser
         @supports (display $display-webkit) and (-webkit-line-clamp $options['lines'])
             display $display-webkit
             -webkit-box-orient vertical
-            -webkit-line-clamp $options['lines']
-            
+            -webkit-line-clamp: $options['lines']
+
     get-display()
         /* Remember the fact, that you should set `width` of the element
         when you are using `$options['is-inline']` display mode */
@@ -164,3 +145,21 @@ line-clamping($user-options)
     check-user-arguments()
         if ($options['lines'] < 1)
             show-error('lines property should be greater then 0')
+            
+    //Constructor
+    $default-options = {
+        lines: 1,
+        line-height: 1.25,
+        font-size: inherit,
+        is-inline: false
+    }
+
+    if typeof($user-options) == 'unit'
+        $user-options = {
+            lines: $user-options
+        }
+    
+    $options = merge($default-options, $user-options)
+    
+    check-user-arguments() 
+    find-strategy-and-print-rules()
