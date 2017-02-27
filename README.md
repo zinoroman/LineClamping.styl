@@ -44,13 +44,13 @@ That's all! Now you are ready to use **line-clamping.styl**
 `line-clamping` mixin takes 1 argument:
 
 ```stylus
-line-clamping(options: <hash|number>)
+line-clamping(options: I-line-clamping|number)
 ```
 
 Available options
 
 ```stylus
-{
+interface I-line-clamping {
     lines: number, 
     line-height?: css unit, 
     font-size?: css unit, 
