@@ -39,19 +39,34 @@ stylus({
 
 That's all! Now you are ready to use **line-clamping.styl**
 
-###Usage
+###API
 
-`line-clamping` mixin takes 4 arguments:
+`line-clamping` mixin takes 1 argument:
 
 ```stylus
-line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-inline = false)
+line-clamping(options: <hash|number>)
+```
+
+Available options
+
+```stylus
+{
+    lines: <number>, 
+    line-height?: <css unit>, 
+    font-size?: <css unit>, 
+    is-inline?: <boolean>
+}
 ```
 
 For example, if you need to create block `.block` that should have two lines of the text, `line-height: 2` and `font-size: 20px` then the code will be following:
 
 ```stylus
 .block
-    line-clamping(2, 2, 20px)
+    line-clamping({
+        lines: 2, 
+        line-height: 2, 
+        font-size: 20px,
+    })
 ```
 
 If you want to use `$is-inline` mode you must set `width` property for the element.
@@ -59,7 +74,12 @@ If you want to use `$is-inline` mode you must set `width` property for the eleme
 ```stylus
 .inline-block
     width 200px
-    line-clamping(2, 2, 20px, true)
+    line-clamping({
+        lines: 2, 
+        line-height: 2, 
+        font-size: 20px,
+        is-inline: true
+    })
 ```
 
 You can find more examples of usage `line-clamping()` in `test` folder
