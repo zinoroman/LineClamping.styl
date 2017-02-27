@@ -2,35 +2,62 @@
  * @author     Zino Roman <zino.roman95@gmail.com>
  * @copyright  Zino Roman 2017 
  */
- 
+
+/**
+    interface I-line-clamping {
+        lines: number,
+        line-height: css-unit,
+        font-size: css-unit,
+        is-inline: boolean;
+    }
+*/
+
 /**
  * Mixin for clamping multiline text
- * @param {number} $lines-count - Count of the lines that will be shown
- * @param {css unit} $line-height - line-height property of the element
- * @param {css unit} $font-size - font-size property of the element
- * @param {boolean} $is-inline - Parameter sets inline display mode for the element
+ * @param {I-line-clamping|number} $options 
  */
-line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-inline = false)
+line-clamping($user-options)
+
+    //Constructor
+    $default-options = {
+        lines: 1,
+        line-height: 1.25,
+        font-size: inherit,
+        is-inline: false
+    }
+
+    if typeof($user-options) == 'unit'
+        $user-options = {
+            lines: $user-options
+        }
+    
+    $options = merge($default-options, $user-options)
+    
+    check-user-arguments() 
+    find-strategy-and-print-rules()
+    
+    //Prototype
+
     /**
-     * @return {string} - Type of the `$line-height` property
+     * @return {string} - Type of the `line-height` property
      */ 
     get-line-height-type()
-        typeof($line-height)
+        typeof($options['line-height'])
                 
     /**
-     * @return {string} - Unit of the `$line-height` property
+     * @return {string} - Unit of the `line-height` property
      */ 
     get-line-height-unit()
-        unit($line-height)
+        unit($options['line-height'])
     
      /**
-      * @return {string} - Unit of the `$font-size` property
+      * @return {string} - Unit of the `font-size` property
       */ 
     get-font-size-type()
-        typeof($font-size)
+        typeof($options['font-size'])
 
      /**
-      * @param {string} $line-height-unit - Unit of the `$line-height` property
+      * @param {string} $line-height-unit - Unit of the `line-height` property
       * @return {boolean} - Is `$line-height-unit` relative
       */ 
     is-line-height-unit-relative($line-height-unit)
@@ -39,12 +66,12 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         else
             false
     
-    calculate-max-height()            
+    calculate-max-height()
         $line-height-type = get-line-height-type()
         $font-size-type = get-font-size-type()
         $is-line-height-type-unit = $line-height-type == 'unit'
         $is-line-height-unit-relative = false
-        
+
         if $is-line-height-type-unit
             $line-height-unit = get-line-height-unit()
             $is-line-height-unit-relative = is-line-height-unit-relative($line-height-unit)
@@ -52,11 +79,11 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         /* Unitless, percents or ems units require
          a different strategy of calculation than all other units */
         if $is-line-height-unit-relative && $is-line-height-type-unit
-            $line-height-computed = $line-height
+            $line-height-computed = $options['line-height']
             
             if $line-height-unit == '%'
                 //Divide `$line-height` in percents by 100 for correct further calculation
-                $line-height-computed = $line-height / 100
+                $line-height-computed = $options['line-height'] / 100
             
             /*
                 Remove units from `$line-height` to avoid potential error
@@ -66,13 +93,13 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
             
             //Calculate our max-height for the element
             if $font-size-type == 'unit'
-                $lines-count * ($line-height-computed * $font-size)
+                $options['lines'] * ($line-height-computed * $options['font-size'])
             else if $font-size-type == 'literal'
-                'calc((%s) * %s)' % (get-calc-inner-value($font-size) ($lines-count * $line-height-computed))
+                'calc((%s) * %s)' % (get-calc-inner-value($options['font-size']) ($options['lines'] * $line-height-computed))
         else if $is-line-height-type-unit
-            $lines-count * $line-height
+            $options['lines'] * $options['line-height']
         else if $line-height-type == 'literal'
-            'calc((%s) * %s)' % (get-calc-inner-value($line-height) $lines-count)
+            'calc((%s) * %s)' % (get-calc-inner-value($options['line-height']) $options['lines'])
     
     /**
      * @param {string} $display - CSS value of display property
@@ -97,34 +124,34 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         display $display
         max-height calculate-max-height()
         overflow hidden
-        font-size $font-size if $font-size != inherit
-        line-height $line-height
+        font-size $options['font-size'] if $options['font-size'] != inherit
+        line-height $options['line-height']
         
         //Rules for webkit browser
-        @supports (display $display-webkit) and (-webkit-line-clamp $lines-count)
+        @supports (display $display-webkit) and (-webkit-line-clamp $options['lines'])
             display $display-webkit
             -webkit-box-orient vertical
-            -webkit-line-clamp $lines-count
+            -webkit-line-clamp $options['lines']
             
     get-display()
         /* Remember the fact, that you should set `width` of the element
-        when you are using `$is-inline` display mode */
-        if $is-inline
+        when you are using `$options['is-inline']` display mode */
+        if $options['is-inline']
             inline-block
         else
             block
     
     get-display-webkit()
-        if $is-inline
+        if $options['is-inline']
             -webkit-inline-box 
         else
             -webkit-box
 
     find-strategy-and-print-rules()
-        $display = get-display($is-inline)
-        $display-webkit = get-display-webkit($is-inline)
+        $display = get-display($options['is-inline'])
+        $display-webkit = get-display-webkit($options['is-inline'])
 
-        if $lines-count == 1
+        if ($options['lines'] == 1)
             strategy-one-line($display)
         else        
             strategy-few-line($display, $display-webkit)
@@ -136,15 +163,5 @@ line-clamping($lines-count = 1, $line-height = 1.25, $font-size = inherit, $is-i
         error('Error in line-clamping.styl: ' + $message)
         
     check-user-arguments()
-        if $lines-count < 1
-            show-error('$lines-count argument should be greater then 0')
-
-    pre-init()
-        check-user-arguments()
-
-    init()
-        pre-init()     
-        find-strategy-and-print-rules()
-                
-    init()
-    
+        if ($options['lines'] < 1)
+            show-error('lines property should be greater then 0')
