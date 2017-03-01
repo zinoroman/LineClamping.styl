@@ -69,7 +69,7 @@ For example, if you need to create block `.block` that should have two lines of 
     })
 ```
 
-If you want to use `$is-inline` mode you must set `width` property for the element.
+If you want to use `is-inline` mode you must set `width` property for the element.
 
 ```stylus
 .inline-block
