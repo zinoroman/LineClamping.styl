@@ -3,9 +3,9 @@
 # line-clamping.styl
 Stylus mixin for clamping multiline text
 
-##Get started
+## Get started
 
-###Installation
+### Installation
 
 You can install **line-clamping.styl** using *npm*
 
@@ -19,9 +19,9 @@ If you are feeling yourself like a hipster you can use *yarn*
 yarn add line-clamping.styl --dev
 ```
 
-###Importing
+### Importing
 
-####Using gulp
+#### Using gulp
 
 Import the installed package from `node_modules`
 
@@ -39,7 +39,7 @@ stylus({
 
 That's all! Now you are ready to use **line-clamping.styl**
 
-###API
+### API
 
 `line-clamping` mixin takes 1 argument:
 
@@ -84,7 +84,7 @@ If you want to use `is-inline` mode you must set `width` property for the elemen
 
 You can find more examples of usage `line-clamping()` in `test` folder
 
-###Testing
+### Testing
 
 First of all you need to install the dependencies:
 
