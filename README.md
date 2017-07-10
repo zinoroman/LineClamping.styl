@@ -13,7 +13,7 @@ You can install **line-clamping.styl** using *npm*
 npm i line-clamping.styl --save-dev
 ```
 
-If you are feeling yourself like a hipster you can use *yarn*
+or you can use *yarn*
 
 ```bash
 yarn add line-clamping.styl --dev
