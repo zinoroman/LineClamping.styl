@@ -1,44 +1,32 @@
-/**
- * @author     Zino Roman <zino.roman95@gmail.com>
- * @copyright  Zino Roman 2017 
- */
+// @author     Zino Roman <zino.roman95@gmail.com>
+// @copyright  Zino Roman 2017 
 
-/**
-    interface I-line-clamping {
-        lines: number,
-        line-height: css-unit,
-        font-size: css-unit,
-        is-inline: boolean;
-    }
-*/
 
-/**
- * Mixin for clamping multiline text
- * @param {I-line-clamping|number} $user-options 
- */
+// interface I-line-clamping {
+//     lines: number,
+//     line-height: css-unit,
+//     font-size: css-unit,
+//     is-inline: boolean;
+// }
+
+
+// Mixin for clamping multiline text
+// @param {I-line-clamping|number} $user-options 
 line-clamping($user-options)
-    /**
-     * @return {string} - Type of the `line-height` property
-     */ 
+    // @return {string} - Type of the `line-height` property
     get-line-height-type()
         typeof($options['line-height'])
                 
-    /**
-     * @return {string} - Unit of the `line-height` property
-     */ 
+    // @return {string} - Unit of the `line-height` property
     get-line-height-unit()
         unit($options['line-height'])
     
-     /**
-      * @return {string} - Unit of the `font-size` property
-      */ 
+    // @return {string} - Unit of the `font-size` property
     get-font-size-type()
         typeof($options['font-size'])
-
-     /**
-      * @param {string} $line-height-unit - Unit of the `line-height` property
-      * @return {boolean} - Is `$line-height-unit` relative
-      */ 
+    
+    // @param {string} $line-height-unit - Unit of the `line-height` property
+    // @return {boolean} - Is `$line-height-unit` relative
     is-line-height-unit-relative($line-height-unit)
         if $line-height-unit == ''  or $line-height-unit  == '%' or $line-height-unit == 'em'
             true
@@ -55,8 +43,8 @@ line-clamping($user-options)
             $line-height-unit = get-line-height-unit()
             $is-line-height-unit-relative = is-line-height-unit-relative($line-height-unit)
             
-        /* Unitless, percents or ems units require
-         a different strategy of calculation than all other units */
+        // Unitless, percents or ems units require
+        // a different strategy of calculation than all other units
         if $is-line-height-unit-relative && $is-line-height-type-unit
             $line-height-computed = $options['line-height']
             
@@ -64,10 +52,9 @@ line-clamping($user-options)
                 //Divide `$line-height` in percents by 100 for correct further calculation
                 $line-height-computed = $options['line-height'] / 100
             
-            /*
-                Remove units from `$line-height` to avoid potential error
-                when `$line-height` and `$font-size` have differents CSS units
-            */
+            
+            // Remove units from `$line-height` to avoid potential error
+            // when `$line-height` and `$font-size` have differents CSS units
             $line-height-computed = unit($line-height-computed, '')
             
             //Calculate our max-height for the element
@@ -81,24 +68,19 @@ line-clamping($user-options)
             'calc((%s) * %s)' % (get-calc-inner-value($options['line-height']) $options['lines'])
 
     
-    /**
-     * @param {string} $display - CSS value of display property
-     */
+    // @param {string} $display - CSS value of display property
     strategy-one-line($display)
-        /* If we need only one line of the text,
-        then better way is to use `text-overflow: ellipsis`
-        than `strategy-few-line()` way
-        cause it has wider support 
-        */
+        // If we need only one line of the text,
+        // then better way is to use `text-overflow: ellipsis`
+        // than `strategy-few-line()` way
+        // cause it has wider support
         display $display
         overflow hidden
         text-overflow ellipsis
         white-space nowrap
 
-    /**
-     * @param {string} $display - CSS value of display property
-     * @param {string} $display-webkit - CSS value of display property
-     */
+    // @param {string} $display - CSS value of display property
+    // @param {string} $display-webkit - CSS value of display property
     strategy-few-line($display, $display-webkit)        
         //Rules for IE, Edge, Firefox
         display $display
@@ -114,8 +96,8 @@ line-clamping($user-options)
             -webkit-line-clamp: $options['lines']
 
     get-display()
-        /* Remember the fact, that you should set `width` of the element
-        when you are using `$options['is-inline']` display mode */
+        // Remember the fact, that you should set `width` of the element
+        // when you are using `$options['is-inline']` display mode
         if $options['is-inline']
             inline-block
         else
@@ -136,9 +118,7 @@ line-clamping($user-options)
         else        
             strategy-few-line($display, $display-webkit)
     
-    /**
-     * @param {string} $message - Error message that will be shown
-     */ 
+    // @param {string} $message - Error message that will be shown
     show-error($message)
         error('Error in line-clamping.styl: ' + $message)
         
